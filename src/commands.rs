@@ -1,5 +1,5 @@
-use std::collections::HashMap;
 use crate::utils;
+use std::collections::HashMap;
 
 fn generate_command_map() -> HashMap<String, String> {
     let mut command_mapping = HashMap::new();
@@ -15,10 +15,9 @@ pub fn generate_command(path: String) -> Option<String> {
     let extension = utils::get_extension(&path);
 
     if !extension.is_some() {
-        return None
-    }
-    else if !command_mapping.contains_key(extension.unwrap()) {
-        return None
+        return None;
+    } else if !command_mapping.contains_key(extension.unwrap()) {
+        return None;
     }
     Some(command_mapping[extension.unwrap()].clone())
 }

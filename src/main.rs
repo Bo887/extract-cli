@@ -1,5 +1,5 @@
-mod utils;
 mod commands;
+mod utils;
 
 fn main() {
     let path = utils::parse_args();
