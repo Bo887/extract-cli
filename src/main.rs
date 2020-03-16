@@ -4,5 +4,5 @@ mod commands;
 fn main() {
     let path = utils::parse_args();
 
-    println!("{}", path);
+    println!("{}", commands::generate_command(path).unwrap());
 }
