@@ -1,9 +1,10 @@
 extern crate clap;
 
 use clap::{App, Arg};
-
-use std::ffi::OsStr;
 use std::path::Path;
+
+use crate::commands;
+use crate::errors;
 
 pub fn parse_args() -> String {
     let matches = App::new("extract")
@@ -21,6 +22,16 @@ pub fn parse_args() -> String {
     path.to_string()
 }
 
-pub fn get_extension(path: &str) -> Option<&str> {
-    Path::new(path).extension().and_then(OsStr::to_str)
+pub fn get_command(path: &str) -> Result<&str, errors::Error> {
+    if !Path::new(path).exists() {
+        return Err(errors::Error::NoSuchFile);
+    }
+
+    for (extension, command) in &*commands::MAPPING {
+        if path.ends_with(extension) {
+            return Ok(command);
+        }
+    }
+
+    Err(errors::Error::UnrecognizedExtension)
 }
