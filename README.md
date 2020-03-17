@@ -3,7 +3,7 @@ Command line utility that automatically figures out what command to use when ext
 
 ## Motivation
 -  To start learning Rust.
+- [https://xkcd.com/1168](https://xkcd.com/1168/)
 
 ![xkcd](https://imgs.xkcd.com/comics/tar.png)
 
-[https://xkcd.com/1168/](https://xkcd.com/1168/)
