@@ -5,8 +5,8 @@ mod utils;
 #[macro_use]
 extern crate lazy_static;
 
-use std::io::Write;
 use std::io;
+use std::io::Write;
 
 fn main() {
     let path = utils::parse_args();
@@ -15,8 +15,7 @@ fn main() {
 
     if err.is_some() {
         eprintln!("Error: {}", err.unwrap());
-    }
-    else {
+    } else {
         eprintln!("Successfully extracted {}", path);
     }
     if stdout.is_some() {
