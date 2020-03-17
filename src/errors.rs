@@ -1,7 +1,6 @@
-#[derive(Debug)]
-#[derive(PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq)]
 pub enum Error {
     NoSuchFile,
     UnrecognizedExtension,
-    UnableToExtract
+    UnableToExtract,
 }

@@ -40,13 +40,11 @@ fn get_command(path: &str) -> Result<String, errors::Error> {
 pub fn run_command(path: &str) -> Option<errors::Error> {
     let res = get_command(path);
     if res.is_err() {
-        return res.err()
+        return res.err();
     }
     let command = res.unwrap();
     let args: Vec<&str> = command.split(" ").collect();
-    let status = Command::new(args[0])
-        .args(&args[1..])
-        .status();
+    let status = Command::new(args[0]).args(&args[1..]).status();
     if status.is_err() || !status.unwrap().success() {
         return Some(errors::Error::UnableToExtract);
     }
