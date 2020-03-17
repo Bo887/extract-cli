@@ -8,8 +8,8 @@ extern crate lazy_static;
 fn main() {
     let path = utils::parse_args();
 
-    let error = utils::run_command(&path);
-    if error.is_some() {
-        println!("{:?}", error)
+    let (err, stdout, stderr) = utils::run_command(&path);
+    if err.is_some() {
+        eprintln!("Error: {:?}", err.unwrap());
     }
 }

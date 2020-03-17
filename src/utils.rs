@@ -37,16 +37,25 @@ fn get_command(path: &str) -> Result<String, errors::Error> {
     Err(errors::Error::UnrecognizedExtension)
 }
 
-pub fn run_command(path: &str) -> Option<errors::Error> {
+pub fn run_command(path: &str) -> (Option<errors::Error>, Option<Vec<u8>>, Option<Vec<u8>>) {
     let res = get_command(path);
     if res.is_err() {
-        return res.err();
+        return (Some(res.err().unwrap()), None, None);
     }
+
     let command = res.unwrap();
     let args: Vec<&str> = command.split(" ").collect();
-    let status = Command::new(args[0]).args(&args[1..]).status();
-    if status.is_err() || !status.unwrap().success() {
-        return Some(errors::Error::UnableToExtract);
+
+    let res = Command::new(args[0]).args(&args[1..]).output();
+    if res.is_err() {
+        return (Some(errors::Error::UnableToExtract), None, None);
     }
-    None
+
+    let output = res.unwrap();
+    let stdout = Some(output.stdout);
+    let stderr = Some(output.stderr);
+    if !output.status.success() {
+        return (Some(errors::Error::UnableToExtract), stdout, stderr);
+    }
+    (None, stdout, stderr)
 }
