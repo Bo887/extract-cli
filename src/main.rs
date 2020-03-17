@@ -10,6 +10,6 @@ fn main() {
 
     let (err, stdout, stderr) = utils::run_command(&path);
     if err.is_some() {
-        eprintln!("Error: {:?}", err.unwrap());
+        eprintln!("Error: {}", err.unwrap());
     }
 }
